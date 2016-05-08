@@ -30,11 +30,8 @@ else
 	echo "" | sudo tee /etc/apt/apt.conf.d/80proxy
 fi
 
-#######################################################################
-# add ppa and latest node repository
-#######################################################################
 echo "*******************************************************************"
-echo "mothership: adding ppa and latest node repository"
+echo "mothership: adding ppa"
 echo "*******************************************************************"
 
 sudo apt-get update -y
@@ -45,11 +42,6 @@ sudo -E add-apt-repository ppa:git-core/ppa
 #tmux ppa
 sudo -E add-apt-repository ppa:pi-rho/dev
 
-curl -sL https://deb.nodesource.com/setup_5.x | bash -
-
-#######################################################################
-# install apt packages
-#######################################################################
 echo "*******************************************************************"
 echo "mothership: starting install apt packages "
 echo "*******************************************************************"
@@ -60,7 +52,6 @@ sudo apt-get install -y git
 sudo apt-get install -y tmux
 sudo apt-get install -y nginx
 sudo apt-get install -y mongodb
-sudo apt-get install -y nodejs
 sudo apt-get install -y ruby
 sudo apt-get install -y python3
 sudo apt-get install -y unison
@@ -73,6 +64,18 @@ sudo apt-get install -y libxml2-utils
 sudo apt-get install -y xclip
 sudo apt-get install -y corkscrew
 
+echo "*******************************************************************"
+echo "mothership: install nvm"
+echo "*******************************************************************"
+git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
+source ~/.nvm/nvm.sh
+
+echo "*******************************************************************"
+echo "mothership: install node 5.0"
+echo "*******************************************************************"
+
+nvm install 5.0
+nvm use 5.0
 
 #######################################################################
 # npm & git set proxy
@@ -98,27 +101,23 @@ else
 	git config --global --unset https.proxy
 fi
 
-#######################################################################
-# install npm packages
-#######################################################################
+echo "*******************************************************************"
 echo "mothership: installing npm packages"
+echo "*******************************************************************"
 
-sudo npm install -g eslint  # pluggable linting utility for javascript and jsx
-sudo npm install -g standard  # javascript standard code checker
-sudo npm install -g node-inspector
-# sudo npm install -g devtool # the best debugger on node
-# sudo npm install -g iron-node # node debugger 
-sudo npm install -g jsonlint # eslint json checker
-sudo npm install -g yeoman-doctor
-sudo npm install -g yo
-sudo npm install -g instant-markdown-d # preview markdown in vim server
-sudo npm install -g hexo # nodejs blogging generator
-sudo npm install -g grunt-cli
+npm install -g eslint  # pluggable linting utility for javascript and jsx
+npm install -g standard  # javascript standard code checker
+npm install -g node-inspector
+# npm install -g devtool # the best debugger on node
+# npm install -g iron-node # node debugger 
+npm install -g jsonlint # eslint json checker
+npm install -g yeoman-doctor
+npm install -g yo
+npm install -g instant-markdown-d # preview markdown in vim server
+npm install -g hexo # nodejs blogging generator
+npm install -g grunt-cli
 
 
-#######################################################################
-# install oh my zsh and change default shell to zsh
-#######################################################################
 echo "*******************************************************************"
 echo "mothership: install oh-my-zsh"
 echo "*******************************************************************"
@@ -127,9 +126,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/m
 git clone https://github.com/zsh-users/antigen.git ~/.zsh-antigen
 
 sudo chsh -s /usr/bin/zsh vagrant
-#######################################################################
-# install vundle
-#######################################################################
+
 echo "*******************************************************************"
 echo "mothership: install vundle and plugins"
 echo "*******************************************************************"
@@ -148,9 +145,6 @@ bash ./install.sh
 cd ~/.vim/bundle/tern_for_vim
 npm install
 
-#######################################################################
-# tmux
-#######################################################################
 echo "*******************************************************************"
 echo "mothership: install tpm(tmux plugin manager) and tmux plugins"
 echo "*******************************************************************"
@@ -158,9 +152,6 @@ echo "*******************************************************************"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 bash ~/.tmux/plugins/tpm/bin/install_plugins
 
-#######################################################################
-# symlink
-#######################################################################
 echo "*******************************************************************"
 echo "mothership: symlinks"
 echo "*******************************************************************"
