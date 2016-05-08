@@ -17,8 +17,6 @@ if [ "$corporate" -eq 0 ]; then
 	echo "*******************************************************************"
 
 	sudo touch /etc/apt/apt.conf.d/80proxy
-	# echo Acquire::http::proxy "\"http://proxy.sin.sap.corp:8080\";" | sudo tee /etc/apt/apt.conf.d/80proxy
-	# echo Acquire::https::proxy "\"http://proxy.sin.sap.corp:8080\";" | sudo tee -a /etc/apt/apt.conf.d/80proxy
 	echo Acquire::http::proxy "\"$proxy_addr\";" | sudo tee /etc/apt/apt.conf.d/80proxy
 	echo Acquire::https::proxy "\"$proxy_addr\";" | sudo tee -a /etc/apt/apt.conf.d/80proxy
 
@@ -32,53 +30,53 @@ else
 	echo "" | sudo tee /etc/apt/apt.conf.d/80proxy
 fi
 
-# #######################################################################
-# # add ppa and latest node repository
-# #######################################################################
-# echo "*******************************************************************"
-# echo "mothership: adding ppa and latest node repository"
-# echo "*******************************************************************"
+#######################################################################
+# add ppa and latest node repository
+#######################################################################
+echo "*******************************************************************"
+echo "mothership: adding ppa and latest node repository"
+echo "*******************************************************************"
 
-# sudo apt-get update -y
-# sudo apt-get install --reinstall ca-certificates
+sudo apt-get update -y
+sudo apt-get install --reinstall ca-certificates
 
-# sudo -E add-apt-repository ppa:nginx/stable
-# sudo -E add-apt-repository ppa:git-core/ppa
-# #tmux ppa
-# sudo -E add-apt-repository ppa:pi-rho/dev
+sudo -E add-apt-repository ppa:nginx/stable
+sudo -E add-apt-repository ppa:git-core/ppa
+#tmux ppa
+sudo -E add-apt-repository ppa:pi-rho/dev
 
-# curl -sL https://deb.nodesource.com/setup_5.x | bash -
+curl -sL https://deb.nodesource.com/setup_5.x | bash -
 
-# #######################################################################
-# # install apt packages
-# #######################################################################
-# echo "*******************************************************************"
-# echo "mothership: starting install apt packages "
-# echo "*******************************************************************"
-
-
-# sudo apt-get install -y zsh
-# sudo apt-get install -y git
-# sudo apt-get install -y tmux
-# sudo apt-get install -y nginx
-# sudo apt-get install -y mongodb
-# sudo apt-get install -y nodejs
-# sudo apt-get install -y ruby
-# sudo apt-get install -y python3
-# sudo apt-get install -y unison
-# sudo apt-get install -y tree
-# sudo apt-get install -y watch
-# sudo apt-get install -y cmake
-# sudo apt-get install -y httpie
-# sudo apt-get install -y silversearcher-ag
-# sudo apt-get install -y libxml2-utils
-# sudo apt-get install -y xclip
-# sudo apt-get install -y corkscrew
+#######################################################################
+# install apt packages
+#######################################################################
+echo "*******************************************************************"
+echo "mothership: starting install apt packages "
+echo "*******************************************************************"
 
 
-# #######################################################################
-# # npm & git set proxy
-# #######################################################################
+sudo apt-get install -y zsh
+sudo apt-get install -y git
+sudo apt-get install -y tmux
+sudo apt-get install -y nginx
+sudo apt-get install -y mongodb
+sudo apt-get install -y nodejs
+sudo apt-get install -y ruby
+sudo apt-get install -y python3
+sudo apt-get install -y unison
+sudo apt-get install -y tree
+sudo apt-get install -y watch
+sudo apt-get install -y cmake
+sudo apt-get install -y httpie
+sudo apt-get install -y silversearcher-ag
+sudo apt-get install -y libxml2-utils
+sudo apt-get install -y xclip
+sudo apt-get install -y corkscrew
+
+
+#######################################################################
+# npm & git set proxy
+#######################################################################
 
 
 if [ "$corporate" -eq 0 ]; then
@@ -100,22 +98,22 @@ else
 	git config --global --unset https.proxy
 fi
 
-# #######################################################################
-# # install npm packages
-# #######################################################################
-# echo "mothership: installing npm packages"
+#######################################################################
+# install npm packages
+#######################################################################
+echo "mothership: installing npm packages"
 
-# sudo npm install -g eslint  # pluggable linting utility for javascript and jsx
-# sudo npm install -g standard  # javascript standard code checker
-# sudo npm install -g node-inspector
-# # sudo npm install -g devtool # the best debugger on node
-# # sudo npm install -g iron-node # node debugger 
-# sudo npm install -g jsonlint # eslint json checker
-# sudo npm install -g yeoman-doctor
-# sudo npm install -g yo
-# sudo npm install -g instant-markdown-d # preview markdown in vim server
-# sudo npm install -g hexo # nodejs blogging generator
-# sudo npm install -g grunt-cli
+sudo npm install -g eslint  # pluggable linting utility for javascript and jsx
+sudo npm install -g standard  # javascript standard code checker
+sudo npm install -g node-inspector
+# sudo npm install -g devtool # the best debugger on node
+# sudo npm install -g iron-node # node debugger 
+sudo npm install -g jsonlint # eslint json checker
+sudo npm install -g yeoman-doctor
+sudo npm install -g yo
+sudo npm install -g instant-markdown-d # preview markdown in vim server
+sudo npm install -g hexo # nodejs blogging generator
+sudo npm install -g grunt-cli
 
 
 #######################################################################
