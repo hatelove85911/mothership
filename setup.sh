@@ -22,7 +22,7 @@ if [ "$corporate" -eq 0 ]; then
 
 	export http_proxy=$proxy_addr
 	export https_proxy=$proxy_addr
-else 
+else
 	echo "*******************************************************************"
 	echo "mothership: NO corporate proxy, deleting proxy for apt-get and http_proxy, https_proxy environment variabls"
 	echo "*******************************************************************"
@@ -74,8 +74,8 @@ echo "*******************************************************************"
 echo "mothership: install node 5.0"
 echo "*******************************************************************"
 
-nvm install 5.0
-nvm use 5.0
+nvm install node
+nvm use node
 
 #######################################################################
 # npm & git set proxy
@@ -109,7 +109,7 @@ npm install -g eslint  # pluggable linting utility for javascript and jsx
 npm install -g standard  # javascript standard code checker
 npm install -g node-inspector
 # npm install -g devtool # the best debugger on node
-# npm install -g iron-node # node debugger 
+# npm install -g iron-node # node debugger
 npm install -g jsonlint # eslint json checker
 npm install -g yeoman-doctor
 npm install -g yo
@@ -117,6 +117,19 @@ npm install -g instant-markdown-d # preview markdown in vim server
 npm install -g hexo # nodejs blogging generator
 npm install -g grunt-cli
 
+
+echo "*******************************************************************"
+echo "mothership: symlinks"
+echo "*******************************************************************"
+sudo ln -sf /usr/bin/nodejs /usr/bin/node
+sudo ln -sf ~/Dropbox/mymeta/home/.gitconfig ~/.gitconfig
+sudo ln -sf ~/Dropbox/mymeta/home/.zshenv ~/.zshenv
+sudo ln -sf ~/Dropbox/mymeta/home/.zshrc ~/.zshrc
+sudo ln -sf ~/Dropbox/mymeta/home/bin ~/bin
+sudo ln -sf ~/Dropbox/mymeta/home/.cheat ~/.cheat
+sudo ln -sf ~/Dropbox/mymeta/home/.vimrc ~/.vimrc
+sudo ln -sf ~/Dropbox/mymeta/home/Ultisnips ~/.vim/UltiSnips
+sudo ln -sf ~/Dropbox/mymeta/home/.tmux.conf ~/.tmux.conf
 
 echo "*******************************************************************"
 echo "mothership: install oh-my-zsh"
@@ -151,16 +164,3 @@ echo "*******************************************************************"
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 bash ~/.tmux/plugins/tpm/bin/install_plugins
-
-echo "*******************************************************************"
-echo "mothership: symlinks"
-echo "*******************************************************************"
-sudo ln -sf /usr/bin/nodejs /usr/bin/node
-sudo ln -sf ~/Dropbox/mymeta/home/.gitconfig ~/.gitconfig
-sudo ln -sf ~/Dropbox/mymeta/home/.zshenv ~/.zshenv
-sudo ln -sf ~/Dropbox/mymeta/home/.zshrc ~/.zshrc
-sudo ln -sf ~/Dropbox/mymeta/home/bin ~/bin
-sudo ln -sf ~/Dropbox/mymeta/home/.cheat ~/.cheat
-sudo ln -sf ~/Dropbox/mymeta/home/.vimrc ~/.vimrc
-sudo ln -sf ~/Dropbox/mymeta/home/Ultisnips ~/.vim/UltiSnips
-sudo ln -sf ~/Dropbox/mymeta/home/.tmux.conf ~/.tmux.conf
