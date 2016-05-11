@@ -1,2 +1,2 @@
 # mothership
-mothership docker file
+mothership powered by ubuntu managed by vagrant
