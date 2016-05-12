@@ -4,8 +4,8 @@ echo "mothership: who am i?"
 echo "*******************************************************************"
 whoami
 
-proxy_server=proxy.sin.sap.corp
-proxy_addr=http://proxy.sin.sap.corp:8080
+proxy_server=proxy.tyo.sap.corp
+proxy_addr=http://proxy.tyo.sap.corp:8080
 #######################################################################
 # set proxy
 #######################################################################
@@ -26,26 +26,31 @@ else
 	echo "*******************************************************************"
 	echo "mothership: NO corporate proxy, deleting proxy for apt-get and http_proxy, https_proxy environment variabls"
 	echo "*******************************************************************"
-	sudo touch /etc/apt/apt.conf.d/80proxy
-	echo "" | sudo tee /etc/apt/apt.conf.d/80proxy
+	sudo rm /etc/apt/apt.conf.d/80proxy
+
+	unset http_proxy
+	unset https_proxy	
 fi
 
 echo "*******************************************************************"
 echo "mothership: adding ppa"
 echo "*******************************************************************"
-
-sudo apt-get update -y
-sudo apt-get install --reinstall ca-certificates
-
 sudo -E add-apt-repository ppa:nginx/stable
 sudo -E add-apt-repository ppa:git-core/ppa
 #tmux ppa
 sudo -E add-apt-repository ppa:pi-rho/dev
+#neovim
+sudo -E add-apt-repository ppa:neovim-ppa/unstable
+#fasd
+sudo -E add-apt-repository ppa:aacebedo/fasd
+sudo apt-get update -y
 
 echo "*******************************************************************"
 echo "mothership: starting install apt packages "
 echo "*******************************************************************"
-
+sudo apt-get install --reinstall ca-certificates
+sudo apt-get install -y software-properties-common
+sudo apt-get install -y build-essential
 
 sudo apt-get install -y zsh
 sudo apt-get install -y git
@@ -53,11 +58,23 @@ sudo apt-get install -y tmux
 sudo apt-get install -y nginx
 sudo apt-get install -y mongodb
 sudo apt-get install -y ruby
+sudo apt-get install -y cmake
+
+# python
+sudo apt-get install -y python
+sudo apt-get install -y python-pip
+sudo apt-get install -y python-dev
+
 sudo apt-get install -y python3
+sudo apt-get install -y python3-pip
+sudo apt-get install -y python3-dev
+
+sudo apt-get install -y neovim
+
+sudo apt-get install -y fasd
 sudo apt-get install -y unison
 sudo apt-get install -y tree
 sudo apt-get install -y watch
-sudo apt-get install -y cmake
 sudo apt-get install -y httpie
 sudo apt-get install -y silversearcher-ag
 sudo apt-get install -y libxml2-utils
@@ -119,17 +136,10 @@ npm install -g grunt-cli
 
 
 echo "*******************************************************************"
-echo "mothership: symlinks"
+echo "mothership: installing python packages"
 echo "*******************************************************************"
-sudo ln -sf /usr/bin/nodejs /usr/bin/node
-sudo ln -sf ~/Dropbox/mymeta/home/.gitconfig ~/.gitconfig
-sudo ln -sf ~/Dropbox/mymeta/home/.zshenv ~/.zshenv
-sudo ln -sf ~/Dropbox/mymeta/home/.zshrc ~/.zshrc
-sudo ln -sf ~/Dropbox/mymeta/home/bin ~/bin
-sudo ln -sf ~/Dropbox/mymeta/home/.cheat ~/.cheat
-sudo ln -sf ~/Dropbox/mymeta/home/.vimrc ~/.vimrc
-sudo ln -sf ~/Dropbox/mymeta/home/Ultisnips ~/.vim/UltiSnips
-sudo ln -sf ~/Dropbox/mymeta/home/.tmux.conf ~/.tmux.conf
+sudo -E pip install neovim
+sudo -E pip install cheat
 
 echo "*******************************************************************"
 echo "mothership: install oh-my-zsh"
@@ -141,22 +151,36 @@ git clone https://github.com/zsh-users/antigen.git ~/.zsh-antigen
 sudo chsh -s /usr/bin/zsh vagrant
 
 echo "*******************************************************************"
-echo "mothership: install vundle and plugins"
+echo "mothership: install vim-plug and plugs"
 echo "*******************************************************************"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-echo | echo | vim -c PluginInstall -c qall
 
-# make vimproc.vim plugin
-cd ~/.vim/bundle/vimproc.vim
-make
+mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+sudo ln -sf ~/Dropbox/mymeta/home/init.vim $XDG_CONFIG_HOME/nvim/init.vim
 
-# cmake youcompleteme
-cd ~/.vim/bundle/YouCompleteMe
-bash ./install.sh
+echo | echo | nvim -c PlugInstall -c qall
 
-# install tern for vim
-cd ~/.vim/bundle/tern_for_vim
-npm install
+
+# echo "*******************************************************************"
+# echo "mothership: install vundle and plugins"
+# echo "*******************************************************************"
+# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# sudo ln -sf ~/Dropbox/mymeta/home/.vimrc ~/.vimrc
+
+# echo | echo | vim -c PluginInstall -c qall
+
+# # make vimproc.vim plugin
+# cd ~/.vim/bundle/vimproc.vim
+#
+
+# # cmake youcompleteme
+# cd ~/.vim/bundle/YouCompleteMe
+# ./install.py --tern-completer
+
+# # install tern for vim
+# cd ~/.vim/bundle/tern_for_vim
+# npm install
 
 echo "*******************************************************************"
 echo "mothership: install tpm(tmux plugin manager) and tmux plugins"
@@ -164,3 +188,15 @@ echo "*******************************************************************"
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 bash ~/.tmux/plugins/tpm/bin/install_plugins
+
+echo "*******************************************************************"
+echo "mothership: symlinks"
+echo "*******************************************************************"
+sudo ln -sf /usr/bin/nodejs /usr/bin/node
+sudo ln -sf ~/Dropbox/mymeta/home/.gitconfig ~/.gitconfig
+sudo ln -sf ~/Dropbox/mymeta/home/.zshenv ~/.zshenv
+sudo ln -sf ~/Dropbox/mymeta/home/.zshrc ~/.zshrc
+sudo ln -sf ~/Dropbox/mymeta/home/bin ~/bin
+sudo ln -sf ~/Dropbox/mymeta/home/.cheat ~/.cheat
+sudo ln -sf ~/Dropbox/mymeta/home/Ultisnips ~/.vim/UltiSnips
+sudo ln -sf ~/Dropbox/mymeta/home/.tmux.conf ~/.tmux.conf
