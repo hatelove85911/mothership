@@ -124,7 +124,7 @@ echo "*******************************************************************"
 
 npm install -g eslint  # pluggable linting utility for javascript and jsx
 npm install -g standard  # javascript standard code checker
-npm install -g node-inspector
+# npm install -g node-inspector
 # npm install -g devtool # the best debugger on node
 # npm install -g iron-node # node debugger
 npm install -g jsonlint # eslint json checker
@@ -187,6 +187,7 @@ echo "mothership: install tpm(tmux plugin manager) and tmux plugins"
 echo "*******************************************************************"
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+sudo ln -sf ~/Dropbox/mymeta/home/.tmux.conf ~/.tmux.conf
 bash ~/.tmux/plugins/tpm/bin/install_plugins
 
 echo "*******************************************************************"
@@ -198,5 +199,4 @@ sudo ln -sf ~/Dropbox/mymeta/home/.zshenv ~/.zshenv
 sudo ln -sf ~/Dropbox/mymeta/home/.zshrc ~/.zshrc
 sudo ln -sf ~/Dropbox/mymeta/home/bin ~/bin
 sudo ln -sf ~/Dropbox/mymeta/home/.cheat ~/.cheat
-sudo ln -sf ~/Dropbox/mymeta/home/Ultisnips ~/.vim/UltiSnips
-sudo ln -sf ~/Dropbox/mymeta/home/.tmux.conf ~/.tmux.conf
+sudo ln -sf ~/Dropbox/mymeta/home/Ultisnips ~/$XDG_CONFIG_HOME/nvim/UltiSnips
